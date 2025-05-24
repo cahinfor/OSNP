@@ -6,12 +6,25 @@
 
 using namespace std;
 
-int solve(const long long B, const long long C, const long long D) {
-    int result = 0;
-    const long long candil_bebek = C - D;
-    for (long long i = D+1; i <= B; i++) {
-        if (candil_bebek % i == 0) {
-            result++;
+using ll = long long;
+
+ll solve(const ll B, const ll C, const ll D) {
+    ll result = 0;
+    const ll candil_bebek = C - D;
+
+    if (candil_bebek == 0 && B > C) return B-C;
+    if (candil_bebek == 0) return 0;
+
+    for (ll bawah = 1; bawah*bawah <= candil_bebek; bawah++) {
+        if (candil_bebek % bawah == 0) {
+            if (bawah > D && bawah <= B) {
+                result++;
+            }
+
+            const ll atas = candil_bebek / bawah;
+            if (atas != bawah && atas > D && atas <= B) {
+                result++;
+            }
         }
     }
 
